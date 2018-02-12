@@ -19,7 +19,8 @@ module.exports = {
       number: 0,
       class: ''
     }] },
-    changeThrottle: { type: Number, default: 0 }
+    changeThrottle: { type: Number, default: 0 },
+    hintCode: {type: String, default: ''}
   },
   mounted() {
     this.fetchEditor();
@@ -95,6 +96,7 @@ module.exports = {
     editorHasLoaded(editor, monaco) {
       this.editor = editor;
       this.monaco = monaco;
+      this.monaco.languages.typescript.addExtraLib(this.hintCode);
       this.editor.onDidChangeModelContent(event =>
         this.codeChangeHandler(editor, event)
       );
